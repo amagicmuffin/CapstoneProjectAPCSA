@@ -40,16 +40,26 @@ public class Map
     public int getX() { return map[0].length; }
     
     // go must be type GameObject, or a child type
-    public void placeObject (int x, int y, GameObject go)
+    public GameObject placeObject (int x, int y, GameObject go)
     {
         if ((y >= 0 && y < map.length) && (x >= 0 && x < map[0].length))
+        {
+            GameObject temp = map[y][x];
             map[y][x] = go;
+            return temp;
+        }
+        return null;
     }
     
     // for 2d arrays it is [row][column], which becomes [y][x] in this context
-    public void removeObject (int x, int y)
+    public GameObject removeObject (int x, int y)
     {
         if ((y >= 0 && y < map.length) && (x >= 0 && x < map[0].length))
+        {
+            GameObject temp = map[y][x];
             map[y][x] = null;
+            return temp;
+        }
+        return null;
     }
 }

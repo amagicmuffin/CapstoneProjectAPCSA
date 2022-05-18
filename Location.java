@@ -8,30 +8,29 @@
 public class Location extends GameObject
 {
     // instance variables - replace the example below with your own
-    private String owner;
+    private boolean known;
 
     /**
      * Constructor for objects of class Location
      */
     public Location()
     {
-        owner = "";
+        known = false;
     }
     
-    // returns the previous owner, updates the owner
-    public String updateOwner(Player newOwner)
+    public void setKnown(boolean known)
     {
-        String oldOwner = owner;
-        owner = newOwner.getID();
-        return oldOwner;
+        this.known = known;
     }
+    
+    public boolean getKnown() { return known; }
     
     // note: the id's of the players will be capitalized
     public String toString()
     {
-        if (owner.equals(""))
+        if (known)
             return "X";
         else
-            return owner.toLowerCase();
+            return "?";
     }
 }

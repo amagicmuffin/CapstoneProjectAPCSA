@@ -18,7 +18,6 @@ public class Driver
         int p1y = 2;
         
         Location castle = new Location();
-        castle.updateOwner(p1);
         
         map.placeObject(p1x, p1y, p1); // places objects (starts counting from 0)
         map.placeObject(2, 3, castle);
@@ -47,28 +46,31 @@ public class Driver
                         if (p1y > 0)
                         {
                             map.removeObject(p1x, p1y);
-                            map.placeObject(p1x, --p1y, p1);
+                            System.out.println(map.placeObject(p1x, --p1y, p1));
                         }
                         break;
                     case 'D': case 'd':
                         if (p1y < map.getY() - 1)
                         {
                             map.removeObject(p1x, p1y);
-                            map.placeObject(p1x, ++p1y, p1);
+                            System.out.println(map.placeObject(p1x, ++p1y, p1));
                         }
                         break;
                     case 'R': case 'r':
                         if (p1x < map.getX() - 1)
                         {
                             map.removeObject(p1x, p1y);
-                            map.placeObject(++p1x, p1y, p1);
+                            if (map.placeObject(++p1x, p1y, p1) != null)
+                            {
+                                cutscene();
+                            }
                         }
                         break;
                     case 'L': case 'l':
                         if (p1x > 0)
                         {
                             map.removeObject(p1x, p1y);
-                            map.placeObject(--p1x, p1y, p1);
+                            System.out.println(map.placeObject(--p1x, p1y, p1));
                         }
                         break;
                     default:
@@ -86,5 +88,22 @@ public class Driver
             
         System.out.println("\n\nTake an action:\n-----------------------");
         System.out.println("M - move\nQ - quit\nW - wait");
+    }
+    
+    private static void cutscene()
+    {
+        String[] enemies = {"Goblin","Skeleton","Bandit","Thief","Gremlin","Zombie","Spider"};
+        String[] adjectives = {"Mad","Bloodthirsty","Starving","Rampaging","Sneaky", "Short", "Tall", "Fat", "Hungry"};
+        
+        String enemy = enemies[(int) (Math.random() * 7)];
+        int r = (int) (Math.random() * 10);
+        if(r == 9)
+            enemy = "Golden " + enemy;
+        else
+            enemy = adjectives[r] + " " + enemy;
+            
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("A " + enemy + " approaches you!");
+        
     }
 }
