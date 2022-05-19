@@ -63,14 +63,14 @@ public class Driver
             
             if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("w"))            
                 continue;
-            else if (input.equalsIgnoreCase("jeff bezos")) // cheats (delete this later)
-                gold += 9999;
-            else if (input.equalsIgnoreCase("saitama"))
-            {
-                hp = 9999;
-                dmg = 999;
-                blk = 999;
-            }
+            //else if (input.equalsIgnoreCase("jeff bezos")) // cheats (delete this later)
+            //    gold += 9999;
+            //else if (input.equalsIgnoreCase("saitama"))
+            //{
+            //    hp = 9999;
+            //    dmg = 999;
+            //    blk = 999;
+            //}
             else if (input.equalsIgnoreCase("b"))
             {
                 System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
