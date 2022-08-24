@@ -26,9 +26,9 @@ public class Map
             for (GameObject go : row)
             {
                 if (go != null)
-                    str += "[" + go.toString() + "]";
+                    str += " " + go.toString() + " ";
                 else
-                    str += "[ ]";
+                    str += " . ";
             }
             str += "\n";
         }

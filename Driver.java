@@ -7,9 +7,15 @@ import java.util.Scanner;
  */
 public class Driver
 {
+    // ansi isn't supported on windows, except git bash. 
+    // ansi supported mostly everywhere else, including replit
+    // toggle this as needed
+    public static final boolean USE_ANSI_CODES = false; 
+    
     public static void main (String[] args)
     {
         Scanner scan = new Scanner(System.in);
+        Text.useANSI = USE_ANSI_CODES;
               
         String name = intro();
         
@@ -162,9 +168,7 @@ public class Driver
                         break;
                 }
                 
-                double delay = 3; // seconds to wait        
-                try { Thread.sleep((long)(delay * 1000)); }
-                catch(InterruptedException e) { System.out.println(e); }
+                Text.wait(3);
             }
             else if (input.equalsIgnoreCase("m"))
             {
@@ -197,9 +201,7 @@ public class Driver
                                 else if (upgrade.equalsIgnoreCase("B"))
                                 { blk += 6; System.out.println("Block increased to "+blk+".\n"); }
                                 
-                                double delay = 1; // seconds to wait        
-                                try { Thread.sleep((long)(delay * 1000)); }
-                                catch(InterruptedException e) { System.out.println(e); }
+                                Text.wait(1);
                             }
                         }
                         break;
@@ -224,9 +226,7 @@ public class Driver
                                 else if (upgrade.equalsIgnoreCase("B"))
                                 { blk += 6; System.out.println("Block increased to "+blk+".\n"); }
                                 
-                                double delay = 1; // seconds to wait        
-                                try { Thread.sleep((long)(delay * 1000)); }
-                                catch(InterruptedException e) { System.out.println(e); }
+                                Text.wait(1);
                             }
                         }
                         break;
@@ -257,9 +257,7 @@ public class Driver
                                     else if (upgrade.equalsIgnoreCase("B"))
                                     { blk += 6; System.out.println("Block increased to "+blk+".\n"); }
                                     
-                                    double delay = 1; // seconds to wait        
-                                    try { Thread.sleep((long)(delay * 1000)); }
-                                    catch(InterruptedException e) { System.out.println(e); }
+                                    Text.wait(1);
                                 }
                             }
                         }
@@ -285,9 +283,7 @@ public class Driver
                                 else if (upgrade.equalsIgnoreCase("B"))
                                 { blk += 6; System.out.println("Block increased to "+blk+".\n"); }
                                 
-                                double delay = 1; // seconds to wait        
-                                try { Thread.sleep((long)(delay * 1000)); }
-                                catch(InterruptedException e) { System.out.println(e); }
+                                Text.wait(1);
                             }
                         }
                         break;
@@ -381,69 +377,44 @@ public class Driver
         
         if (eHP == 0)
         {
-            System.out.print("How...");
-            
-            double delay = 1; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println(" how is this possible!?");
-            
-            delay = 2; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println("How was I defeated?");
-            
-            delay = 2; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println("I am a god, how was I defeated by a mortal like...");
-            
-            delay = 4; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            for (int i = 0; i < 4; i++)
-            {
-                System.out.println(".");
-                
-                delay = 2; // seconds to wait        
-                try { Thread.sleep((long)(delay * 1000)); }
-                catch(InterruptedException e) { System.out.println(e); }
-            }
-            
-            System.out.println("Impressive, you managed to defeat Draucabra.");
-            
-            delay = 4; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println("For all of our sakes', thank you, brave warrior.");
-            
-            delay = 5; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
+            Text.slowPrint("How...\n");
+            Text.wait(2000);
+
+            Text.slowPrint("how is this possible!?\n");
+            Text.wait(2000);
+
+            Text.slowPrint("How was I defeated?\n");
+            Text.wait(2000);
+
+            Text.slowPrint("I am a god, how was I defeated by a mortal like...");
+            Text.wait(2000);
+
+            Text.slowPrint(".\n");
+            Text.wait(2000);
+
+            Text.slowPrint(".\n");
+            Text.wait(2000);
+
+            Text.slowPrint(".\n");
+            Text.wait(2000);
+
+            Text.slowPrint("Impressive, you managed to defeat Draucabra.\n");
+            Text.wait(4000);
+
+            Text.slowPrint("For all of our sakes', thank you, brave warrior.\n");
+            Text.wait(5000);
             
             System.out.println("-----------------------------\n      THE END. You won!      \n-----------------------------");
             System.exit(0);
-        }
-        else
-        {
-            System.out.println("You fought well, I'll give you that.");
-            
-            double delay = 3; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println("Few challengers have been as skilled as you.");
-            
-            delay = 3; // seconds to wait        
-            try { Thread.sleep((long)(delay * 1000)); }
-            catch(InterruptedException e) { System.out.println(e); }
-            
-            System.out.println("Unfortunately, you are yet to surpass a god like me.");
+        } else {
+            Text.slowPrint("You fought well, I'll give you that.\n");
+            Text.wait(2000);
+
+            Text.slowPrint("Few challengers have been as skilled as you.\n");
+            Text.wait(2000);
+
+            Text.slowPrint("Unfortunately, you are yet to surpass a god like me.\n");
+            Text.wait(5000);
             
             System.exit(0);
         }
@@ -546,62 +517,46 @@ public class Driver
         
         return "ERROR";
     }
-    
-    private static String intro() // long text dialogue as an introduction to the game
+
+    /** long text dialogue as an introduction to the game */
+    private static String intro() 
     {
         Scanner scan = new Scanner(System.in);
-        double delay = 1.0;
         
-        System.out.println("Hello, traveler. By what name should I call you?");
+        Text.slowPrint("Hello,");
+        Text.wait(500);
+        Text.slowPrint(" traveler.");
+        Text.wait(1000);
+        Text.slowPrint(" By what name should I call you?\n");
+        Text.slowPrint("> ");
         String name = scan.nextLine();
         
-        System.out.println("Well hello there, "+name+".");
+        Text.slowPrint("Well hello there, "+name+".\n");
+        Text.wait(2000);
         
-        delay = 1; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
+        Text.slowPrint("This land has been long abandoned for over 200 years.\n");
+        Text.wait(2000);
         
-        System.out.println("This land has been long abandoned for over 200 years.");
+        Text.slowPrint("All sorts of monsters and evil beings lurk behind every corner.\n");
+        Text.wait(2000);
         
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
+        Text.slowPrint("The beast who rules over them all,");
+        Text.wait(500);
+        Text.slowPrint(" Draucabra,");
+        Text.wait(500);
+        Text.slowPrint(" is said to possess a seemingly infinite amount of riches.\n");
+        Text.wait(2000);
         
-        System.out.println("All sorts of monsters and evil beings lurk behind every corner.");
+        Text.slowPrint("However, no one has ever been able to defeat him.\n");
+        Text.wait(2000);
         
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
+        Text.slowPrint("I wonder,");
+        Text.wait(500);
+        Text.slowPrint(" will you be strong enough to take on the challenge?\n");
+        Text.wait(2000);
         
-        System.out.println("The beast who rules over them all, Draucabra,");
-        
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
-        
-        System.out.println("is said to possess a seemingly infinite amount of riches.");
-        
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
-        
-        System.out.println("However, no one has ever been able to defeat him.");
-        
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
-        
-        System.out.println("I wonder, will you be strong enough to take on the challenge?");
-        
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
-        
-        System.out.println("Only time will tell.");
-        
-        delay = 5; // seconds to wait        
-        try { Thread.sleep((long)(delay * 1000)); }
-        catch(InterruptedException e) { System.out.println(e); }
+        Text.slowPrint("Only time will tell.\n");
+        Text.wait(2000);
         
         System.out.println("\n\nINSTRUCTIONS:\n--------------------\n"+
                             "Move across the map and encounter enemies at question marks\n"+
@@ -610,7 +565,7 @@ public class Driver
                             "Use the console to interact with the game as instructed\n\n"+
                             "Good luck!");
         
-        System.out.println("\n--------------------\nType anything into the console to continue.");
+        System.out.print("\n--------------------\nType anything into the console to continue.\n> ");
         scan.next();
         
         return name;
