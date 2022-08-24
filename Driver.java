@@ -523,6 +523,7 @@ public class Driver
     {
         Scanner scan = new Scanner(System.in);
         
+        Text.cls();
         Text.slowPrint("Hello,");
         Text.wait(500);
         Text.slowPrint(" traveler.");
