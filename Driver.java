@@ -531,7 +531,8 @@ public class Driver
         Text.slowPrint(" By what name should I call you?\n");
         Text.slowPrint("> ");
         String name = scan.nextLine();
-        
+
+        Text.wait(1000);
         Text.slowPrint("Well hello there, "+name+".\n");
         Text.wait(2000);
         
@@ -558,6 +559,10 @@ public class Driver
         
         Text.slowPrint("Only time will tell.\n");
         Text.wait(2000);
+
+        System.out.print("\nPress enter to continue\n> ");
+        scan.nextLine();
+        Text.cls();
         
         System.out.println("\n\nINSTRUCTIONS:\n--------------------\n"+
                             "Move across the map and encounter enemies at question marks\n"+
@@ -566,8 +571,8 @@ public class Driver
                             "Use the console to interact with the game as instructed\n\n"+
                             "Good luck!");
         
-        System.out.print("\n--------------------\nType anything into the console to continue.\n> ");
-        scan.next();
+        System.out.print("\n--------------------\nPress enter to continue\n> ");
+        scan.nextLine();
         
         return name;
     }
