@@ -66,8 +66,9 @@ public class Driver
             
             do { input = scan.nextLine(); }
             while (input.equals(""));
-            
-            if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("w"))            
+
+            // TODO why the hell is this here
+            if (input.equalsIgnoreCase("q"))            
                 continue;
             //else if (input.equalsIgnoreCase("jeff bezos")) // cheats (delete this later)
             //    gold += 9999;
@@ -171,8 +172,10 @@ public class Driver
                 Text.wait(3);
             }
             else if (input.equalsIgnoreCase("w")){
+                System.out.println("here1");
                 if (py > 0)
                         {
+                            System.out.println("here2");
                             map.removeObject(px, py);
                             if (map.placeObject(px, --py, p) != null)
                             {
@@ -304,6 +307,9 @@ public class Driver
                         break;
                 }
             }
+            System.out.println("DEBUG: px > " + px);
+            System.out.println("DEBUG: py > " + py);
+            
         }
     }
     
