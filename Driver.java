@@ -172,7 +172,7 @@ public class Driver
             }
             else if (input.equalsIgnoreCase("m"))
             {
-                System.out.print("\nWhich direction? (U/D/L/R for up/down/left/right) ");
+                System.out.print("\nWhich direction? (U/D/L/R for up/down/left/right) "); // TODO HERE
                 do { input = scan.next(); }
                 while (input.length() != 1);
                 
