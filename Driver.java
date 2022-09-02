@@ -17,7 +17,7 @@ public class Driver
         Scanner scan = new Scanner(System.in);
         Text.useANSI = USE_ANSI_CODES;
               
-        String name = intro();
+        String name = "tempTODO"; // intro();
         
         Map map = new Map(12, 12); // creates a map 12 wide 12 high (12x, 12y)
         
@@ -170,18 +170,8 @@ public class Driver
                 
                 Text.wait(3);
             }
-            else if (input.equalsIgnoreCase("m"))
-            {
-                System.out.print("\nWhich direction? (U/D/L/R for up/down/left/right) "); // TODO HERE
-                do { input = scan.next(); }
-                while (input.length() != 1);
-                
-                char c = input.charAt(0);
-                
-                switch (c)
-                {
-                    case 'U': case 'u':
-                        if (py > 0)
+            else if (input.equalsIgnoreCase("w")){
+                if (py > 0)
                         {
                             map.removeObject(px, py);
                             if (map.placeObject(px, --py, p) != null)
@@ -204,9 +194,9 @@ public class Driver
                                 Text.wait(1);
                             }
                         }
-                        break;
-                    case 'D': case 'd':
-                        if (py < map.getY() - 1)
+            }
+            else if (input.equalsIgnoreCase("s")){
+                if (py < map.getY() - 1)
                         {
                             map.removeObject(px, py);
                             if (map.placeObject(px, ++py, p) != null)
@@ -229,9 +219,9 @@ public class Driver
                                 Text.wait(1);
                             }
                         }
-                        break;
-                    case 'R': case 'r':
-                        if (px < map.getX() - 1)
+            }
+            else if (input.equalsIgnoreCase("d")){
+                if (px < map.getX() - 1)
                         {
                             map.removeObject(px, py);
                             if (map.placeObject(++px, py, p) != null)
@@ -261,9 +251,9 @@ public class Driver
                                 }
                             }
                         }
-                        break;
-                    case 'L': case 'l':
-                        if (px > 0)
+            }
+            else if (input.equalsIgnoreCase("a")){
+                if (px > 0)
                         {
                             map.removeObject(px, py);
                             if (map.placeObject(--px, py, p) != null)
@@ -286,6 +276,28 @@ public class Driver
                                 Text.wait(1);
                             }
                         }
+            }
+            else if (input.equalsIgnoreCase("m"))
+            {
+                System.out.print("\nWhich direction? (U/D/L/R for up/down/left/right) "); // TODO HERE
+                do { input = scan.next(); }
+                while (input.length() != 1);
+                
+                char c = input.charAt(0);
+                
+                switch (c)
+                {
+                    case 'U': case 'u':
+                        
+                        break;
+                    case 'D': case 'd':
+                        
+                        break;
+                    case 'R': case 'r':
+                        
+                        break;
+                    case 'L': case 'l':
+                        
                         break;
                     default:
                         System.out.println("Invalid option");
