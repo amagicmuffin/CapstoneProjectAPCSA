@@ -353,44 +353,46 @@ public class Driver {
         }
 
         if (eHP == 0) {
-            Text.slowPrint("How...\n");
+            Text.slowPrint("\nHow...");
             Text.wait(2000);
 
-            Text.slowPrint("how is this possible!?\n");
+            Text.slowPrint("\nhow is this possible!?");
             Text.wait(2000);
 
-            Text.slowPrint("How was I defeated?\n");
+            Text.slowPrint("\nHow was I defeated?");
             Text.wait(2000);
 
-            Text.slowPrint("I am a god, how was I defeated by a mortal like...");
+            Text.slowPrint("\nI am a god, how was I defeated by a mortal like...");
             Text.wait(2000);
 
-            Text.slowPrint(".\n");
+            Text.slowPrint("\n.");
             Text.wait(2000);
 
-            Text.slowPrint(".\n");
+            Text.slowPrint("\n.");
             Text.wait(2000);
 
-            Text.slowPrint(".\n");
+            Text.slowPrint("\n.");
             Text.wait(2000);
 
-            Text.slowPrint("Impressive, you managed to defeat Draucabra.\n");
+            Text.slowPrint("\nImpressive, you managed to defeat Draucabra.");
             Text.wait(4000);
 
-            Text.slowPrint("For all of our sakes', thank you, brave warrior.\n");
-            Text.wait(5000);
+            Text.slowPrint("\nFor all of our sakes', thank you, brave warrior.");
+            Text.wait(4000);
 
             System.out.println("-----------------------------\n      THE END. You won!      \n-----------------------------");
             System.exit(0);
         } else {
-            Text.slowPrint("You fought well, I'll give you that.\n");
+            Text.slowPrint("You fought well, I'll give you that.");
             Text.wait(2000);
 
-            Text.slowPrint("Few challengers have been as skilled as you.\n");
+            Text.slowPrint("\nFew challengers have been as skilled as you.");
             Text.wait(2000);
 
-            Text.slowPrint("Unfortunately, you are yet to surpass a god like me.\n");
+            Text.slowPrint("\nUnfortunately, you are yet to surpass a god like me.");
             Text.wait(5000);
+
+            System.out.println("-----------------------------\n      THE END. You lost.      \n-----------------------------");
 
             System.exit(0);
         }
@@ -491,6 +493,8 @@ public class Driver {
             return in;
         } else {
             System.out.println("You died. It seems you still lack strength.");
+
+            System.out.println("-----------------------------\n      THE END. You lost.      \n-----------------------------");
             System.exit(0);
         }
 
@@ -513,38 +517,38 @@ public class Driver {
         String name = scan.nextLine();
 
         Text.wait(1000);
-        Text.slowPrint("Well hello there, " + name + ".\n");
+        Text.slowPrint("\nWell hello there, " + name + ".");
         Text.wait(2000);
 
-        Text.slowPrint("This land has been long abandoned for over 200 years.\n");
+        Text.slowPrint("\nThis land has been long abandoned for over 200 years.");
         Text.wait(2000);
 
-        Text.slowPrint("All sorts of monsters and evil beings lurk behind every corner.\n");
+        Text.slowPrint("\nAll sorts of monsters and evil beings lurk behind every corner.");
         Text.wait(2000);
 
-        Text.slowPrint("The beast who rules over them all,");
+        Text.slowPrint("\nThe beast who rules over them all,");
         Text.wait(500);
         Text.slowPrint(" Draucabra,");
         Text.wait(500);
-        Text.slowPrint(" is said to possess a seemingly infinite amount of riches.\n");
+        Text.slowPrint(" is said to possess a seemingly infinite amount of riches.");
         Text.wait(2000);
 
-        Text.slowPrint("However, no one has ever been able to defeat him.\n");
+        Text.slowPrint("\nHowever, no one has ever been able to defeat him.");
         Text.wait(2000);
 
-        Text.slowPrint("I wonder,");
+        Text.slowPrint("\nI wonder,");
         Text.wait(500);
-        Text.slowPrint(" will you be strong enough to take on the challenge?\n");
+        Text.slowPrint(" will you be strong enough to take on the challenge?");
         Text.wait(2000);
 
-        Text.slowPrint("Only time will tell.\n");
+        Text.slowPrint("\nOnly time will tell.");
         Text.wait(2000);
 
-        System.out.print("\nPress enter to continue\n> ");
+        System.out.print("\n\nPress enter to continue\n> ");
         scan.nextLine();
         Text.cls();
 
-        System.out.println("\n\nINSTRUCTIONS:\n--------------------\n" +
+        System.out.println("INSTRUCTIONS:\n--------------------\n" +
                 "Move across the map and encounter enemies at question marks\n" +
                 "Fight enemies and gain gold and stat buffs upon victory\n" +
                 "All enemies have a 50% chance to attack\n" +
