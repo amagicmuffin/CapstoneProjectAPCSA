@@ -81,7 +81,7 @@ public class Driver {
                 dmg = 999;
                 blk = 999;
             } else if (input.equalsIgnoreCase("b")) {
-                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                Text.cls();
                 System.out.println("Welcome to the Buff Shack!\nYou can purchase stat buffs for gold here, such as:\n" +
                         "(A) 10 HP - 25 gold\t\t\t(D) 40 HP - 80 gold\n" +
                         "(B) 5 DMG - 30 gold\t\t\t(E) 20 DMG - 90 gold\n" +
@@ -270,7 +270,7 @@ public class Driver {
     } // main function
 
     private static void display(Map map) {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        Text.cls();
         System.out.println(map);
 
         System.out.println("\n\nTake an action:\n-----------------------");
@@ -283,7 +283,7 @@ public class Driver {
         String[] adjectives = {"Disgraced", "Warrior", "Dragon", "Sinister", "Detestable"};
         String enemy = "Draucabra the" + adjectives[(int) (Math.random() * 5)];
 
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        Text.cls();
         System.out.println("BOSS FIGHT: " + enemy);
 
         int eHP = 150;
@@ -414,7 +414,7 @@ public class Driver {
             enemy = adjectives[r] + " " + enemy;
         }
 
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        Text.cls();
         System.out.println("A " + enemy + " approaches you! What will you do?\n");
 
         while (pHP != 0 && eHP != 0) {
