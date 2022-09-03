@@ -10,7 +10,7 @@ public class Driver {
     // ansi isn't supported on windows, except git bash.
     // ansi supported mostly everywhere else, including replit
     // toggle this as needed
-    public static final boolean USE_ANSI_CODES = false;
+    public static final boolean USE_ANSI_CODES = true;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -306,6 +306,7 @@ public class Driver {
             }
             while (input.equals(""));
 
+            Text.cls();
             boolean blocking = false;
             // player turn
             if (input.equalsIgnoreCase("Q")) {
@@ -434,6 +435,7 @@ public class Driver {
             }
             while (input.equals(""));
 
+            Text.cls();
             boolean blocking = false;
             // player turn
             if (input.equalsIgnoreCase("Q")) {
