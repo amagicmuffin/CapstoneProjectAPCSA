@@ -23,7 +23,7 @@ class Text {
 
     public static String currentDefaultColor = "white";
 
-    /** prints out a white string slowly, one char at a time. white is the default color. */
+    /** prints out a string slowly, one char at a time. use the default color. */
     public static void slowPrint(String str) {
         slowPrint(str, currentDefaultColor);
     }

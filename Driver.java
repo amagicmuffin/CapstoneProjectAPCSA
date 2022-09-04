@@ -1,16 +1,13 @@
 import java.util.Scanner;
-
-/**
- * Write a description of class Driver here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+// TODO put long userinput blocks like wasd into their own functions
 public class Driver {
     // ansi isn't supported on windows, except git bash.
     // ansi supported mostly everywhere else, including replit
     // toggle this as needed
     public static final boolean USE_ANSI_CODES = true;
+
+    public static Player p;
+    public static Map map = new Map(12, 12); // creates a map 12 wide 12 high (12x, 12y)
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -18,27 +15,218 @@ public class Driver {
 
         String name = intro();
 
-        Map map = new Map(12, 12); // creates a map 12 wide 12 high (12x, 12y)
+        p = new Player(name.substring(0,1));
 
-        Player p;
+        populateMap();
 
-        try {
-            p = new Player(name.substring(0, 1));
-        } catch (Exception e) {
-            p = new Player("P");
-        }
+        String input = new String();
+        while (!input.equalsIgnoreCase("q")) {
+            display(map);
 
-        int px = 1;
-        int py = 1;
+            do { // get user input
+                input = scan.nextLine();
+            }
+            while (input.equals(""));
 
-        // using Integer objects so they can be updated in different functions while retaining value
-        int dmg = 5;
-        int hp = 20;
-        int blk = 10;
-        int gold = 0;
-        int winCount = 0;
+            if (input.equalsIgnoreCase("q")) { // user input - quit game
+                continue;
+            } else if (input.equalsIgnoreCase("jeff bezos")) { // user input - cheat code
+                p.gold += 9999;
+            } else if (input.equalsIgnoreCase("saitama")) { // user input
+                p.hp = 9999;
+                p.dmg = 999;
+                p.blk = 999;
+            } else if (input.equalsIgnoreCase("b")) { // user input - buy item
+                Text.cls();
+                System.out.println("Welcome to the Buff Shack!\nYou can purchase stat buffs for gold here, such as:\n" +
+                        "(A) 10 HP - 25 gold\t\t\t(D) 40 HP - 80 gold\n" +
+                        "(B) 5 DMG - 30 gold\t\t\t(E) 20 DMG - 90 gold\n" +
+                        "(C) 5 BLK - 15 gold\t\t\t(F) 20 BLK - 45 gold\n\n" +
+                        "Which item letter would you like to purchase?\n");
 
-        map.placeObject(px, py, p); // places the player at almost the top-left corner
+                // player input
+                do {
+                    input = scan.nextLine();
+                }
+                while (input.equals(""));
+
+                char c = input.charAt(0);
+
+                switch (c) {
+                    case 'A':
+                    case 'a':
+                        if (p.gold >= 25) {
+                            p.hp += 10;
+                            p.gold -= 25;
+                            System.out.println("\nThank you for your purchase! Your HP is now " + p.hp);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                    case 'B':
+                    case 'b':
+                        if (p.gold >= 30) {
+                            p.dmg += 5;
+                            p.gold -= 30;
+                            System.out.println("\nThank you for your purchase! Your DMG is now " + p.dmg);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                    case 'C':
+                    case 'c':
+                        if (p.gold >= 15) {
+                            p.blk += 5;
+                            p.gold -= 15;
+                            System.out.println("\nThank you for your purchase! Your BLK is now " + p.blk);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                    case 'D':
+                    case 'd':
+                        if (p.gold >= 80) {
+                            p.hp += 40;
+                            p.gold -= 80;
+                            System.out.println("\nThank you for your purchase! Your HP is now " + p.hp);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                    case 'E':
+                    case 'e':
+                        if (p.gold >= 90) {
+                            p.dmg += 20;
+                            p.gold -= 90;
+                            System.out.println("\nThank you for your purchase! Your DMG is now " + p.dmg);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                    case 'F':
+                    case 'f':
+                        if (p.gold >= 45) {
+                            p.blk += 20;
+                            p.gold -= 45;
+                            System.out.println("\nThank you for your purchase! Your BLK is now " + p.blk);
+                        } else {
+                            System.out.println("\nGet some money and then we'll bargain.");
+                        }
+                        break;
+                }
+
+                Text.wait(3);
+            } else if (input.equalsIgnoreCase("w")) { // user input
+                if (p.y > 0) {
+                    map.removeObject(p.x, p.y);
+                    if (map.placeObject(p.x, --p.y, p) != null) {
+                        String upgrade = cutscene(p.hp, p.dmg, p.blk, p.gold, p.winCount);
+                        int i = (int) (Math.random() * 10 + 5);
+                        p.gold += i;
+                        p.winCount++;
+                        System.out.println("You got " + i + " p.gold!");
+
+                        if (upgrade.equalsIgnoreCase("H")) {
+                            p.hp += 10;
+                            System.out.println("Max HP increased to " + p.hp + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("a")) {
+                            p.dmg += 3;
+                            System.out.println("Damage increased to " + p.dmg + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("B")) {
+                            p.blk += 6;
+                            System.out.println("Block increased to " + p.blk + ".\n");
+                        }
+
+                        Text.wait(1);
+                    }
+                }
+            } else if (input.equalsIgnoreCase("s")) {
+                if (p.y < map.getY() - 1) {
+                    map.removeObject(p.x, p.y);
+                    if (map.placeObject(p.x, ++p.y, p) != null) {
+                        String upgrade = cutscene(p.hp, p.dmg, p.blk, p.gold, p.winCount);
+                        int i = (int) (Math.random() * 10 + 5);
+                        p.gold += i;
+                        p.winCount++;
+                        System.out.println("You got " + i + " p.gold!");
+
+                        if (upgrade.equalsIgnoreCase("H")) {
+                            p.hp += 10;
+                            System.out.println("Max HP increased to " + p.hp + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("a")) {
+                            p.dmg += 3;
+                            System.out.println("Damage increased to " + p.dmg + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("B")) {
+                            p.blk += 6;
+                            System.out.println("Block increased to " + p.blk + ".\n");
+                        }
+
+                        Text.wait(1);
+                    }
+                }
+            } else if (input.equalsIgnoreCase("d")) {
+                if (p.x < map.getX() - 1) {
+                    map.removeObject(p.x, p.y);
+                    if (map.placeObject(++p.x, p.y, p) != null) {
+                        if (p.x == 11 && p.y == 11) {
+                            bossfight(p.hp, p.dmg, p.blk);
+                        } else {
+                            String upgrade = cutscene(p.hp, p.dmg, p.blk, p.gold, p.winCount);
+                            int i = (int) (Math.random() * 10 + 5);
+                            p.gold += i;
+                            p.winCount++;
+                            System.out.println("You got " + i + " p.gold!");
+
+                            if (upgrade.equalsIgnoreCase("H")) {
+                                p.hp += 10;
+                                System.out.println("Max HP increased to " + p.hp + ".\n");
+                            } else if (upgrade.equalsIgnoreCase("a")) {
+                                p.dmg += 3;
+                                System.out.println("Damage increased to " + p.dmg + ".\n");
+                            } else if (upgrade.equalsIgnoreCase("B")) {
+                                p.blk += 6;
+                                System.out.println("Block increased to " + p.blk + ".\n");
+                            }
+
+                            Text.wait(1);
+                        }
+                    }
+                }
+            } else if (input.equalsIgnoreCase("a")) {
+                if (p.x > 0) {
+                    map.removeObject(p.x, p.y);
+                    if (map.placeObject(--p.x, p.y, p) != null) {
+                        String upgrade = cutscene(p.hp, p.dmg, p.blk, p.gold, p.winCount);
+                        int i = (int) (Math.random() * 10 + 5);
+                        p.gold += i;
+                        p.winCount++;
+                        System.out.println("You got " + i + " p.gold!");
+
+                        if (upgrade.equalsIgnoreCase("H")) {
+                            p.hp += 10;
+                            System.out.println("Max HP increased to " + p.hp + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("a")) {
+                            p.dmg += 3;
+                            System.out.println("Damage increased to " + p.dmg + ".\n");
+                        } else if (upgrade.equalsIgnoreCase("B")) {
+                            p.blk += 6;
+                            System.out.println("Block increased to " + p.blk + ".\n");
+                        }
+
+                        Text.wait(1);
+                    }
+                }
+            }
+
+            // Debug statements at bottom of game loop 
+            // so they get pushed up when a new map is printed
+            System.out.println("DEBUG: p.x > " + p.x);
+            System.out.println("DEBUG: p.y > " + p.y);
+        } // game loop
+    } // main function
+
+    private static void populateMap() {
+        map.placeObject(p.x, p.y, p); // places the player at almost the top-left corner
 
         for (int i = 0; i < 3; i++) // places locations in the top-left quadrant (except for where the player is)
         {
@@ -58,223 +246,17 @@ public class Driver {
         }
 
         map.placeObject(11, 11, new Location());
-
-        String input = new String();
-        while (!input.equalsIgnoreCase("q")) {
-            display(map);
-            System.out.println("Gold: " + gold + "\t\tHP: " + hp + "\n" +
-                    "Damage: " + dmg + "\tBlock: " + blk + "\n");
-
-            do {
-                input = scan.nextLine();
-            }
-            while (input.equals(""));
-
-            // quit game
-            if (input.equalsIgnoreCase("q")) {
-                continue;
-            } else if (input.equalsIgnoreCase("jeff bezos")) // cheats (delete this later)
-            {
-                gold += 9999;
-            } else if (input.equalsIgnoreCase("saitama")) {
-                hp = 9999;
-                dmg = 999;
-                blk = 999;
-            } else if (input.equalsIgnoreCase("b")) {
-                Text.cls();
-                System.out.println("Welcome to the Buff Shack!\nYou can purchase stat buffs for gold here, such as:\n" +
-                        "(A) 10 HP - 25 gold\t\t\t(D) 40 HP - 80 gold\n" +
-                        "(B) 5 DMG - 30 gold\t\t\t(E) 20 DMG - 90 gold\n" +
-                        "(C) 5 BLK - 15 gold\t\t\t(F) 20 BLK - 45 gold\n\n" +
-                        "Which item letter would you like to purchase?\n");
-
-                // player input
-                do {
-                    input = scan.nextLine();
-                }
-                while (input.equals(""));
-
-                char c = input.charAt(0);
-
-                switch (c) {
-                    case 'A':
-                    case 'a':
-                        if (gold >= 25) {
-                            hp += 10;
-                            gold -= 25;
-                            System.out.println("\nThank you for your purchase! Your HP is now " + hp);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                    case 'B':
-                    case 'b':
-                        if (gold >= 30) {
-                            dmg += 5;
-                            gold -= 30;
-                            System.out.println("\nThank you for your purchase! Your DMG is now " + dmg);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                    case 'C':
-                    case 'c':
-                        if (gold >= 15) {
-                            blk += 5;
-                            gold -= 15;
-                            System.out.println("\nThank you for your purchase! Your BLK is now " + blk);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                    case 'D':
-                    case 'd':
-                        if (gold >= 80) {
-                            hp += 40;
-                            gold -= 80;
-                            System.out.println("\nThank you for your purchase! Your HP is now " + hp);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                    case 'E':
-                    case 'e':
-                        if (gold >= 90) {
-                            dmg += 20;
-                            gold -= 90;
-                            System.out.println("\nThank you for your purchase! Your DMG is now " + dmg);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                    case 'F':
-                    case 'f':
-                        if (gold >= 45) {
-                            blk += 20;
-                            gold -= 45;
-                            System.out.println("\nThank you for your purchase! Your BLK is now " + blk);
-                        } else {
-                            System.out.println("\nGet some money and then we'll bargain.");
-                        }
-                        break;
-                }
-
-                Text.wait(3);
-            } else if (input.equalsIgnoreCase("w")) {
-                if (py > 0) {
-                    map.removeObject(px, py);
-                    if (map.placeObject(px, --py, p) != null) {
-                        String upgrade = cutscene(hp, dmg, blk, gold, winCount);
-                        int i = (int) (Math.random() * 10 + 5);
-                        gold += i;
-                        winCount++;
-                        System.out.println("You got " + i + " gold!");
-
-                        if (upgrade.equalsIgnoreCase("H")) {
-                            hp += 10;
-                            System.out.println("Max HP increased to " + hp + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("a")) {
-                            dmg += 3;
-                            System.out.println("Damage increased to " + dmg + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("B")) {
-                            blk += 6;
-                            System.out.println("Block increased to " + blk + ".\n");
-                        }
-
-                        Text.wait(1);
-                    }
-                }
-            } else if (input.equalsIgnoreCase("s")) {
-                if (py < map.getY() - 1) {
-                    map.removeObject(px, py);
-                    if (map.placeObject(px, ++py, p) != null) {
-                        String upgrade = cutscene(hp, dmg, blk, gold, winCount);
-                        int i = (int) (Math.random() * 10 + 5);
-                        gold += i;
-                        winCount++;
-                        System.out.println("You got " + i + " gold!");
-
-                        if (upgrade.equalsIgnoreCase("H")) {
-                            hp += 10;
-                            System.out.println("Max HP increased to " + hp + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("a")) {
-                            dmg += 3;
-                            System.out.println("Damage increased to " + dmg + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("B")) {
-                            blk += 6;
-                            System.out.println("Block increased to " + blk + ".\n");
-                        }
-
-                        Text.wait(1);
-                    }
-                }
-            } else if (input.equalsIgnoreCase("d")) {
-                if (px < map.getX() - 1) {
-                    map.removeObject(px, py);
-                    if (map.placeObject(++px, py, p) != null) {
-                        if (px == 11 && py == 11) {
-                            bossfight(hp, dmg, blk);
-                        } else {
-                            String upgrade = cutscene(hp, dmg, blk, gold, winCount);
-                            int i = (int) (Math.random() * 10 + 5);
-                            gold += i;
-                            winCount++;
-                            System.out.println("You got " + i + " gold!");
-
-                            if (upgrade.equalsIgnoreCase("H")) {
-                                hp += 10;
-                                System.out.println("Max HP increased to " + hp + ".\n");
-                            } else if (upgrade.equalsIgnoreCase("a")) {
-                                dmg += 3;
-                                System.out.println("Damage increased to " + dmg + ".\n");
-                            } else if (upgrade.equalsIgnoreCase("B")) {
-                                blk += 6;
-                                System.out.println("Block increased to " + blk + ".\n");
-                            }
-
-                            Text.wait(1);
-                        }
-                    }
-                }
-            } else if (input.equalsIgnoreCase("a")) {
-                if (px > 0) {
-                    map.removeObject(px, py);
-                    if (map.placeObject(--px, py, p) != null) {
-                        String upgrade = cutscene(hp, dmg, blk, gold, winCount);
-                        int i = (int) (Math.random() * 10 + 5);
-                        gold += i;
-                        winCount++;
-                        System.out.println("You got " + i + " gold!");
-
-                        if (upgrade.equalsIgnoreCase("H")) {
-                            hp += 10;
-                            System.out.println("Max HP increased to " + hp + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("a")) {
-                            dmg += 3;
-                            System.out.println("Damage increased to " + dmg + ".\n");
-                        } else if (upgrade.equalsIgnoreCase("B")) {
-                            blk += 6;
-                            System.out.println("Block increased to " + blk + ".\n");
-                        }
-
-                        Text.wait(1);
-                    }
-                }
-            }
-
-            // Debug statements at bottom of game loop 
-            // so they get pushed up when a new map is printed
-            System.out.println("DEBUG: px > " + px);
-            System.out.println("DEBUG: py > " + py);
-        } // game loop
-    } // main function
-
+    }
+    
     private static void display(Map map) {
         Text.cls();
         System.out.println(map);
 
         System.out.println("\n\nTake an action:\n-----------------------");
         System.out.println("M - move\nQ - quit\nB - buy\n");
+        System.out.println("Gold: " + p.gold + "\t\tHP: " + p.hp);
+        System.out.println("Damage: " + p.dmg + "\tBlock: " + p.blk);
+        System.out.println();
     }
 
     private static void bossfight(int pHP, int pDMG, int pBLK) {
@@ -514,7 +496,12 @@ public class Driver {
         Text.wait(1000);
         Text.slowPrint(" By what name should I call you?\n");
         Text.slowPrint("> ");
-        String name = scan.nextLine();
+        String name;
+        
+        do {
+            name = scan.nextLine();
+        }
+        while (name.equals(""));
 
         Text.wait(1000);
         Text.slowPrint("\nWell hello there, " + name + ".");
